@@ -140,7 +140,7 @@ ENV/
 env.bak/
 venv.bak/
 project_venv/
-note.odt 
+notes.odt 
 # Spyder project settings
 .spyderproject
 .spyproject
