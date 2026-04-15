@@ -1,4 +1,5 @@
 from django.contrib import admin
+#password modification
 from django.contrib.auth.admin import UserAdmin
 from .models import Account
 
@@ -6,6 +7,7 @@ from .models import Account
 
 class AccountAdmin(UserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active')
+    #name link(click on the name link)
     list_display_links = ('email', 'first_name', 'last_name')
     readonly_fields = ('last_login', 'date_joined')
     ordering = ('-date_joined',)
@@ -13,6 +15,7 @@ class AccountAdmin(UserAdmin):
     #Admin Modification For Readonly Password (not editable)
     filter_horizontal = ()
     list_filter = ()
+    #it makes password read only
     fieldsets = ()
 
 admin.site.register(Account, AccountAdmin)
