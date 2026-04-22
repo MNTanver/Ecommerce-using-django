@@ -12,6 +12,10 @@ def _cart_id(request):
     return cart
 
 def add_cart(request, product_id):
+    color = request.GET['color']
+    size = request.GET['size']
+    return HttpResponse(color + ' ' + size)
+    exit()
     product = Product.objects.get(id = product_id) #get the product
     try:
         #get the cart using the cart id present in the session
@@ -21,7 +25,8 @@ def add_cart(request, product_id):
             cart_id = _cart_id(request)
         )
     cart.save()
-
+    #we need to put the product into cart,when put the product into cart then
+    #product becomes cartitem,in cart there can be multiple product(cartitems)
     try:
         cart_item = CartItem.objects.get(product=product,cart=cart)
         cart_item.quantity += 1 
@@ -57,10 +62,11 @@ def remove_cart_item(request, product_id):
     cart_item.delete()
     return redirect('cart')
 
+#collect and pass information
 def cart(request, total=0, quantity=0,cart_items=None):
     #UnboundLocalError,local variable 'tax' referenced before assignment
-    # tax = 0
-    # grand_total = 0
+    tax = 0
+    grand_total = 0
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request))
         cart_items = CartItem.objects.filter(cart=cart,is_active=True)
